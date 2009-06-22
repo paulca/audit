@@ -29,15 +29,15 @@ module AuditClassMethods
       end
       
       def created
-        Audit.created(:conditions => {:auditable_type => self.to_s})
+        Audit.created.by_object(self.to_s)
       end
       
       def updated
-        Audit.updated(:conditions => {:auditable_type => self.to_s})
+        Audit.updated.by_object(self.to_s)
       end
       
       def destroyed
-        Audit.destroyed(:conditions => {:auditable_type => self.to_s})
+        Audit.destroyed.by_object(self.to_s)
       end
 
       class_eval do        

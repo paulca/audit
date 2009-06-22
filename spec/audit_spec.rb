@@ -8,6 +8,14 @@ class TestModel < ActiveRecord::Base
   end
 end
 
+class TestOtherModel < ActiveRecord::Base
+  audit
+
+  def self.table_name
+    'boojas'
+  end
+end
+
 class User
 end
 
@@ -16,6 +24,13 @@ describe Audit do
     User.stub!(:current_user).and_return(mock_model(User, :id => 42))
     Audit.destroy_all
     @test_model = TestModel.new
+    @test_other_model = TestOtherModel.new
+  end
+  
+  it "should use named scope model to model" do
+    @test_model.save!
+    @test_other_model.save!
+    TestModel.created.count.should == 1
   end
   
   it "should create a create audit on create" do
