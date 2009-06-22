@@ -8,7 +8,7 @@ h2. Install
 
 Easy!
 
-<pre><code>./script plugin install git://github.com/paulca/audit.git
+<pre><code>./script/plugin install git://github.com/paulca/audit.git
 </code></pre>
 
 h2. Setup
