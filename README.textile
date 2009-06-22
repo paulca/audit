@@ -65,6 +65,10 @@ Post.destroyed.count # => 1
 
 That's all folks!
 
+h2. Bonus
+
+If you have a 'User' model and you define User.current_user, then that will be saved to the record to record the user who took the action.
+
 h2. About me
 
 I'm Paul Campbell. I'm an avid Ruby on Rails web developer. Follow my ramblings at "http://www.pabcas.com":http://www.pabcas.com
