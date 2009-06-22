@@ -12,28 +12,32 @@ module AuditClassMethods
       
       has_many(:audits, :as => :auditable) do
         def log_create!
-          proxy_owner.audits.create!(:action => 'create')
+          proxy_owner.audits.create!(:action => 'create', :user_id => current_user_id)
         end
 
         def log_update!
-          proxy_owner.audits.create!(:action => 'update')
+          proxy_owner.audits.create!(:action => 'update', :user_id => current_user_id)
         end
         
         def log_destroy!
-          proxy_owner.audits.create!(:action => 'destroy')
+          proxy_owner.audits.create!(:action => 'destroy', :user_id => current_user_id)
         end
       end
       
+      def current_user_id
+        User.current_user.id if User.respond_to?(:current_user)
+      end
+      
       def created
-        Audit.all(:conditions => {:action => 'create', :auditable_type => self.to_s})
+        Audit.created(:conditions => {:auditable_type => self.to_s})
       end
       
       def updated
-        Audit.all(:conditions => {:action => 'update', :auditable_type => self.to_s})
+        Audit.updated(:conditions => {:auditable_type => self.to_s})
       end
       
       def destroyed
-        Audit.all(:conditions => {:action => 'destroy', :auditable_type => self.to_s})
+        Audit.destroyed(:conditions => {:auditable_type => self.to_s})
       end
 
       class_eval do        

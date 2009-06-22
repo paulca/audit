@@ -4,5 +4,5 @@ class Audit < ActiveRecord::Base
   
   named_scope :created, :conditions => {:action => 'create'}
   named_scope :updated, :conditions => {:action => 'update'}
-  named_scope :destroy, :conditions => {:action => 'destroy'}
+  named_scope :destroyed, :conditions => {:action => 'destroy'}
 end
