@@ -23,6 +23,18 @@ module AuditClassMethods
           proxy_owner.audits.create!(:action => 'destroy')
         end
       end
+      
+      def created
+        Audit.all(:conditions => {:action => 'create', :auditable_type => self.to_s})
+      end
+      
+      def updated
+        Audit.all(:conditions => {:action => 'update', :auditable_type => self.to_s})
+      end
+      
+      def destroyed
+        Audit.all(:conditions => {:action => 'destroy', :auditable_type => self.to_s})
+      end
 
       class_eval do        
         define_method(:log_create_audit) do
